@@ -46,17 +46,17 @@ def login_done(request):
     return response
 
 
-def login(_):
+def login(request):
     dpsess = OAuth2Session(CLIENT_ID)
     auth_url, _ = dpsess.authorization_url(AUTHORIZE_URL)
     raise HTTPFound(auth_url)
 
 
-def logout(_):
+def logout(request):
     raise HTTPFound(LOGOUT_URL)
 
 
-def home(_):
+def home(request):
     return Response('''
         Login with <a href="login">Dataporten</a>.<br />
     ''')
