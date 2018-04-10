@@ -58,7 +58,13 @@ def logout(request):
 
 def home(request):
     return Response('''
+<!DOCTYPE html>
+<html lang="en">
+<title>Test Dataporten Login</title>
+<body>
         Login with <a href="login">Dataporten</a>.<br />
+</body>
+</html>
     ''')
 
 
