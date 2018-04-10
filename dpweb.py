@@ -21,6 +21,17 @@ GROUPS_BASE = 'https://groups-api.127.0.0.1.xip.io/'
 GROUPS_URL = GROUPS_BASE + 'groups/me/groups'
 
 
+def header(title):
+    return ('<head><title>' + str(title) + '</title>'
+            '<meta charset="utf-8">'
+            '<meta name="viewport" '
+            'content="width=device-width, initial-scale=1">'
+            '<style>'
+            'body{margin:40px auto;max-width:650px;line-height:1.6;'
+            'font-size:18px;color:#444;padding:0 10px}'
+            'h1,h2,h3{line-height:1.2}</style>'
+            '</head>')
+
 def login_done(request):
     dpsess = OAuth2Session(CLIENT_ID,
                            redirect_uri=REDIRECT_URI)
@@ -32,12 +43,9 @@ def login_done(request):
     res = dpsess.get(USERINFO_URL, verify=REQUESTS_CA_BUNDLE)
     userinfo = res.json()['user']
     logoutbtn = '[<a href="logout"> logout </a>]'
-    response.write('''
-<!DOCTYPE html>
-<html lang="en">
-<head><title>Dataporten logged in user info</title></head>
-<body>
-''')
+    response.write('<!DOCTYPE html><html lang="en">' +
+                   header('Dataporten logged in user info') +
+                   '<body>')
     response.write(u'<div id="userinfo"><h1>Hi {0}     {1}</h1>\n'.format(
         userinfo.get('name'), logoutbtn))
     response.write(u'<h2>Your id is: {0}</h2>\n'.format(
@@ -64,10 +72,8 @@ def logout(request):
 
 
 def home(request):
-    return Response('''
-<!DOCTYPE html>
-<html lang="en">
-<title>Test Dataporten Login</title>
+    return Response('<!DOCTYPE html><html lang="en">\n' +
+                    header('Test Dataporten Login') + '''
 <body>
         Login with <a href="login">Dataporten</a>.<br />
 </body>
