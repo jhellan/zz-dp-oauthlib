@@ -35,20 +35,20 @@ def login_done(request):
     response.write('''
 <!DOCTYPE html>
 <html lang="en">
-<title>Dataporten logged in user info</title>
+<head><title>Dataporten logged in user info</title></head>
 <body>
 ''')
-    response.write(u'<h1>Hi {0}     {1}</h1>\n'.format(
+    response.write(u'<div id="userinfo"><h1>Hi {0}     {1}</h1>\n'.format(
         userinfo.get('name'), logoutbtn))
     response.write(u'<h2>Your id is: {0}</h2>\n'.format(
         userinfo.get('userid')))
     response.write(u'<h2>Your secondary ids are: {0}</h2>\n'.format(
         userinfo.get('userid_sec')))
-    response.write(u'<h2>Your email is: {0}</h2>\n'.format(
+    response.write(u'<h2>Your email is: {0}</h2></div>\n'.format(
         userinfo.get('email')))
     res = dpsess.get(GROUPS_URL, verify=REQUESTS_CA_BUNDLE)
     response.write(u'<h2>Your groups:</h2>\n')
-    response.write('<pre>\n' + res.content.decode() + '</pre>')
+    response.write('<pre id="groups">\n' + res.content.decode() + '</pre>')
     response.write('</body>\n</html>\n')
     return response
 
